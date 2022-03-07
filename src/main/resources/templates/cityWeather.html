@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather</title>
+    <style type="text/css">
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<div align="center">
+    <h2>Pogoda</h2>
+    <span>City:</span><span th:text="${weather.getCityName()}"></span><br/>
+    <span>Pogoda na dzień:</span><span th:text="${weather.getLocalDate()}"></span><br/>
+    <span>Temperatura:</span><span th:text="${weather.getTemperature()}"></span><br/>
+    <span>Wiatr:</span><span th:text="${weather.getWind()}"></span><br/>
+    <span>Opis:</span><span th:text="${weather.getDescription()}"></span><br/>
+
+    <table border="1" cellpadding="5">
+        <caption><h2>Kolejne dni</h2></caption>
+        <tr>
+            <th>Dzień</th>
+            <th>Temperatura</th>
+            <th>Wiatr</th>
+        </tr>
+        <tr th:each="forecas: ${weather.getForecast()}">
+            <td th:text="${forecas.getLocalDate()}"/>
+            <td th:text="${forecas.getTemperature()}"/>
+            <td th:text="${forecas.getWind()}"/>
+        </tr>
+    </table>
+
+    <form th:action="@{/getCity}" method="post">
+        <p>Miasto: <input type="text" th:name="city"></p>
+        <p><input type="submit" value="Podaj miasto"></p>
+    </form>
+</div>
+</body>
+</html>
